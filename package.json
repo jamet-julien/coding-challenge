@@ -2,7 +2,7 @@
     "name": "coding-challenge",
     "displayName": "coding-challenge",
     "description": "challenge yourself",
-    "version": "0.0.2",
+    "version": "0.0.5",
     "publisher": "JulienJamet",
     "engines": {
         "vscode": "^1.49.0"
@@ -27,6 +27,7 @@
         ]
     },
     "scripts": {
+        "publish-vscode": "dotenv -- cross-var \"vsce publish -p %npm_package_token% --baseImagesUrl %npm_package_url_img%\"",
         "lint": "eslint .",
         "pretest": "npm run lint",
         "test": "node ./test/runTest.js"
@@ -41,5 +42,9 @@
         "mocha": "^8.1.3",
         "typescript": "^4.0.2",
         "vscode-test": "^1.4.0"
+    },
+    "dependencies": {
+        "cross-var": "1.1.0",
+        "dotenv-cli": "4.0.0"
     }
 }
