@@ -2,7 +2,7 @@
     "name": "coding-challenge",
     "displayName": "coding-challenge",
     "description": "challenge yourself",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "JulienJamet",
     "engines": {
         "vscode": "^1.49.0"
@@ -10,6 +10,10 @@
     "categories": [
         "Other"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jamet-julien/coding-challenge.git"
+    },
     "activationEvents": [
         "onCommand:coding-challenge.start"
     ],
