@@ -1,0 +1,41 @@
+{
+    "name": "coding-challenge",
+    "displayName": "coding-challenge",
+    "description": "challenge yourself",
+    "version": "0.0.1",
+    "publisher": "JulienJamet",
+    "engines": {
+        "vscode": "^1.49.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:coding-challenge.start"
+    ],
+    "main": "./src/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "coding-challenge.start",
+                "title": "Coding Challenge 🔥"
+            }
+        ]
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "node ./test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.49.0",
+        "@types/glob": "^7.1.3",
+        "@types/mocha": "^8.0.0",
+        "@types/node": "^14.0.27",
+        "eslint": "^7.6.0",
+        "glob": "^7.1.6",
+        "mocha": "^8.1.3",
+        "typescript": "^4.0.2",
+        "vscode-test": "^1.4.0"
+    }
+}
