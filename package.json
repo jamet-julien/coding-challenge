@@ -15,14 +15,22 @@
         "url": "https://github.com/jamet-julien/coding-challenge.git"
     },
     "activationEvents": [
-        "onCommand:coding-challenge.start"
+        "*"
     ],
     "main": "./src/extension.js",
     "contributes": {
         "commands": [
             {
                 "command": "coding-challenge.start",
-                "title": "Coding Challenge 🔥"
+                "title": "Coding Challenge 🔥 : START !!!"
+            },
+            {
+                "command": "coding-challenge.list",
+                "title": "Coding Challenge 🔥 : get list"
+            },
+            {
+                "command": "coding-challenge.add",
+                "title": "Coding Challenge 🔥 : add challenge"
             }
         ]
     },
@@ -45,6 +53,7 @@
     },
     "dependencies": {
         "cross-var": "1.1.0",
-        "dotenv-cli": "4.0.0"
+        "dotenv-cli": "4.0.0",
+        "file-it": "1.0.24"
     }
 }

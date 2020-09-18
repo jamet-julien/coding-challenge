@@ -19,6 +19,8 @@ const FactoryUiControler = () => {
         },
 
         launchNotif: (msg) => vscode.window.showInformationMessage(msg),
+        launchInput: (placeHolder) =>
+            vscode.window.showInputBox({ placeHolder }),
         launchNotifPause: (msg) =>
             vscode.window.showInformationMessage(msg, "stop").then((value) => {
                 if (value == "stop") {
