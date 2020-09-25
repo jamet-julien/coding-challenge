@@ -2,7 +2,7 @@
     "name": "coding-challenge",
     "displayName": "coding-challenge",
     "description": "challenge yourself",
-    "version": "0.0.5",
+    "version": "0.1.0",
     "publisher": "JulienJamet",
     "engines": {
         "vscode": "^1.49.0"
@@ -22,20 +22,20 @@
         "commands": [
             {
                 "command": "coding-challenge.start",
-                "title": "Coding Challenge 🔥 : START !!!"
+                "title": "[Coding Challenge] : Launch 🔥 "
             },
             {
                 "command": "coding-challenge.list",
-                "title": "Coding Challenge 🔥 : get list"
+                "title": "[Coding Challenge] : Choose & launch 🔥 "
             },
             {
                 "command": "coding-challenge.add",
-                "title": "Coding Challenge 🔥 : add challenge"
+                "title": "[Coding Challenge] : add challenge"
             }
         ]
     },
     "scripts": {
-        "publish-vscode": "dotenv -- cross-var \"vsce publish -p %npm_package_token% --baseImagesUrl %npm_package_url_img%\"",
+        "deploy": "dotenv -- cross-var \"vsce publish -p %npm_package_token% --baseImagesUrl %npm_package_url_img%\"",
         "lint": "eslint .",
         "pretest": "npm run lint",
         "test": "node ./test/runTest.js"

@@ -4,7 +4,7 @@ const FactoryTimerControler = require("./controller/TimerController");
 const FactoryStorageCtrl = require("./controller/StorageDiskController");
 
 const { ACTION } = require("./utils/constant");
-const { compose, computeReturn } = require("./utils/helper");
+const { compose } = require("./utils/helper");
 
 function activate(context) {
     const StorageController = FactoryStorageCtrl();
@@ -12,11 +12,23 @@ function activate(context) {
     StorageController.start().then((instanceStorage) => {
         const ProjectControler = FactoryProjectCtrl(instanceStorage);
         const UIControler = FactoryUiControler();
+        const TimerControler = FactoryTimerControler();
 
-        const statusBar = UIControler.createStatusBar();
-        const TimerControler = FactoryTimerControler(statusBar);
-
-        const runList = compose(ProjectControler.getList, console.log);
+        const runList = compose(
+            ProjectControler.getList,
+            TimerControler.formatTimeList,
+            (projects) =>
+                projects.map(({ label, time }) => ({
+                    label,
+                    description: ` Best time [${time}]`,
+                })),
+            UIControler.launchPick,
+            ProjectControler.setOne,
+            (item) => `"${item.label}" launched 🔥`,
+            UIControler.launchNotif,
+            UIControler.getStatusBar,
+            TimerControler.start
+        );
 
         const runAdd = compose(
             () => "Add Challenge",
@@ -25,29 +37,31 @@ function activate(context) {
         );
 
         const runStart = compose(
-            TimerControler.start,
             ProjectControler.pickRandom,
-            (item) => `"${item.name}" launched 🔥`,
-            UIControler.launchNotif
+            (item) => `"${item.label}" launched 🔥`,
+            UIControler.launchNotif,
+            UIControler.getStatusBar,
+            TimerControler.start
         );
 
         const runStop = compose(
-            computeReturn(TimerControler.stop, ProjectControler.getOne),
-            ({ project, time }) => `"${project.name}" Final time [${time}]`,
+            TimerControler.stop,
+            ProjectControler.updateOne,
+            (project) => `"${project.label}" Final time [${project.time}]`,
             UIControler.launchNotif
         );
 
         const runPause = compose(
             TimerControler.pause,
             ProjectControler.getOne,
-            (item) => `"${item.name}" paused ⏸`,
+            (item) => `"${item.label}" paused ⏸`,
             UIControler.launchNotifPause
         );
 
         const runPlay = compose(
             TimerControler.play,
             ProjectControler.getOne,
-            (item) => `"${item.name}" continue`,
+            (item) => `"${item.label}" continued`,
             UIControler.launchNotif
         );
 
@@ -59,6 +73,7 @@ function activate(context) {
             runStart
         );
         let stopSubscriptions = UIControler.saveCommand(ACTION.stop, runStop);
+
         let playSubscriptions = UIControler.saveCommand(ACTION.play, runPlay);
         let pauseSubscriptions = UIControler.saveCommand(
             ACTION.pause,
@@ -67,8 +82,8 @@ function activate(context) {
 
         context.subscriptions.push(listSubscriptions);
         context.subscriptions.push(addSubscriptions);
-
         context.subscriptions.push(startSubscriptions);
+
         context.subscriptions.push(stopSubscriptions);
         context.subscriptions.push(playSubscriptions);
         context.subscriptions.push(pauseSubscriptions);
