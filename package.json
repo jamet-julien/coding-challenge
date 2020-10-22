@@ -2,7 +2,7 @@
     "name": "coding-challenge",
     "displayName": "coding-challenge",
     "description": "challenge yourself",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "JulienJamet",
     "engines": {
         "vscode": "^1.49.0"
